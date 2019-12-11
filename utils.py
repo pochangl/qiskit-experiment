@@ -8,7 +8,7 @@ def print_vector(circuit, width):
     print(circuit)
     vector = result.get_statevector()
     for index, value in enumerate(vector):
-        if value:
+        if abs(value) > 0.01:
             result = list('0' * width)
             data = '{0:b}'.format(index)
             data = list(data)
@@ -17,4 +17,4 @@ def print_vector(circuit, width):
             for pos, char in enumerate(data):
                 result[pos] = char
             result.reverse()
-            print(''.join(result), value)
+            print(''.join(result), value, abs(value))
