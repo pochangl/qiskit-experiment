@@ -1,25 +1,7 @@
 import qiskit
-from qiskit import QuantumRegister, ClassicalRegister, QuantumCircuit
-from qiskit import Aer
+from qiskit import QuantumRegister, QuantumCircuit
 from operators import add
-
-
-def print_result(circuit, width):
-    backend = Aer.get_backend('statevector_simulator')
-    result = qiskit.execute(circuit, backend=backend).result()
-    print(circuit)
-    vector = result.get_statevector()
-    for index, value in enumerate(vector):
-        if value:
-            result = list('0' * width)
-            data = '{0:b}'.format(index)
-            data = list(data)
-            data.reverse()
-
-            for pos, char in enumerate(data):
-                result[pos] = char
-            result.reverse()
-            print(''.join(result), value)
+from utils import print_vector
 
 
 q = qiskit.QuantumRegister(4)
@@ -29,4 +11,4 @@ circuit = qiskit.QuantumCircuit(q)
 circuit.h([a, b])
 add(circuit, a, b, s, c)
 
-print_result(circuit, width=4)
+print_vector(circuit, width=4)
